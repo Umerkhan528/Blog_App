@@ -1,9 +1,12 @@
+import 'package:blog_clean_architecture/core/secrets/app_secret.dart';
 import 'package:blog_clean_architecture/core/theme/app_theme.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/pages/login.dart';
-import 'package:blog_clean_architecture/features/auth/presentation/pages/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
+   WidgetsFlutterBinding.ensureInitialized();
+  final supabase = Supabase.initialize(url: AppSecret.supabaseUrl, anonKey: AppSecret.supabasekey);
   runApp(const MyApp());
 }
 
