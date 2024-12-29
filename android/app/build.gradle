@@ -7,8 +7,10 @@ plugins {
 
 android {
     namespace = "com.example.blog_clean_architecture"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    
+    // Explicit versions for better compatibility
+    compileSdk = 34  // Updated to latest SDK version
+    ndkVersion = "27.0.12077973" // Set the required NDK version
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -20,25 +22,21 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.blog_clean_architecture"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdk = 21          // Set minimum SDK (update if required by plugins)
+        targetSdk = 34       // Use latest target SDK
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
     }
 }
 
+// Point to Flutter project directory
 flutter {
     source = "../.."
 }
