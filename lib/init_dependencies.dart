@@ -8,6 +8,8 @@ import 'package:blog_clean_architecture/features/auth/presentation/bloc/auth_blo
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'features/auth/domain/usecase/current_user.dart';
+
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -43,6 +45,12 @@ void _initAuth() {
     () => AuthBloc(
       userSignup: serviceLocator(),
       userLogin: serviceLocator(),
+      currentUser: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+        () => CurrentUser(
+      serviceLocator(),
     ),
   );
 }
