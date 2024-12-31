@@ -1,6 +1,8 @@
+import 'package:blog_clean_architecture/core/common/cubit/app_user_cubit/app_user_cubit.dart';
 import 'package:blog_clean_architecture/features/auth/domain/usecase/user_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gotrue/src/types/user.dart';
 
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/entities/user.dart';
@@ -13,13 +15,15 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   UserSignup _userSignup;
   UserLogIn _userLogin;
-  final CurrentUser _currentUser;
-
+  CurrentUser _currentUser;
+  AppUserCubit _appUserCubit;
   AuthBloc({required UserSignup userSignup, required UserLogIn userLogin,
-  required CurrentUser currentUser,})
+  required CurrentUser currentUser,
+  required AppUserCubit appUserCubit,})
       : _userSignup = userSignup,
         _userLogin = userLogin,
         _currentUser = currentUser,
+        _appUserCubit = appUserCubit,
         super(AuthInitial()) {
     on<AuthSignUp>(_onAuthSignUp);
     on<AuthLogin>(_onAuthLogin);
@@ -64,5 +68,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             (user) => emit(
           AuthSuccess(user: user),
         ));
+  }
+
+  void _appUserLoggedIn(User user, Emitter <AuthState> emit){
+    if(user != null){
+      emit(AuthSuccess(user: user));
+      _appUserCubit.updateUser(user);
+    }
   }
 }
