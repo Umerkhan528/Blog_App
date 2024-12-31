@@ -1,14 +1,17 @@
 import "package:blog_clean_architecture/core/errors/failure.dart";
+import "package:blog_clean_architecture/features/auth/data/model/user_model.dart";
 import "package:fpdart/fpdart.dart";
 
+import "../entities/user.dart";
+
 abstract interface class AuthRepository {
-  Future<Either<Failure, String>> signUpWithEmailPassword({
+  Future<Either<Failure, User>> signUpWithEmailPassword({
     required String email,
     required String password,
     required String name,
   });
 
-  Future<Either<Failure, String>> loginWithEmailPassword({
+  Future<Either<Failure, User>> loginWithEmailPassword({
     required String email,
     required String password,
   });
