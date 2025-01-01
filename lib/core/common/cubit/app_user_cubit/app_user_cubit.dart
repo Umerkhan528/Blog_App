@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
-import 'package:blog_clean_architecture/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:blog_clean_architecture/core/common/entities/user.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'app_user_state.dart';
 
