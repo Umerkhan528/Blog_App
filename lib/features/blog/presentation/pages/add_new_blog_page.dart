@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/constants.dart';
+
 class AddNewBlogPage extends StatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const AddNewBlogPage(),
@@ -40,9 +42,13 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
   }
 
   void uploadBlog() {
+    print("this function  is called!");
+    print( (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id);
     if (formKey.currentState!.validate() &&
         selectedTopics.isNotEmpty &&
         image != null) {
+      print("this function  is entered!");
+      print( (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id);
       final posterId =
           (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
       context.read<BlogBloc>().add(
@@ -111,7 +117,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.file(
                                   image!,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fitHeight,
                                 ),
                               ),
                             ),

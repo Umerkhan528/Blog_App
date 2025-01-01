@@ -1,8 +1,10 @@
 import 'package:blog_clean_architecture/core/common/cubit/app_user_cubit/app_user_cubit.dart';
 import 'package:blog_clean_architecture/core/theme/app_theme.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:blog_clean_architecture/features/auth/presentation/pages/login.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/pages/sign_up.dart';
 import 'package:blog_clean_architecture/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:blog_clean_architecture/features/blog/presentation/pages/blog_page.dart';
 import 'package:blog_clean_architecture/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +45,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.darkThemeMode,
-      home: const SignUpPage(),
+      home: BlocSelector<AppUserCubit,AppUserState,bool>(selector: (state) {
+        return state is AppUserLoggedIn;
+      },
+      builder: (BuildContext context, isLoggedIn) {
+        if(isLoggedIn){
+          return const BlogPage();
+    }
+        return const LoginPage();
+    }
+    )
     );
   }
 }

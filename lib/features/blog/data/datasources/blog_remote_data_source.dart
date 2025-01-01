@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:blog_app/core/error/exceptions.dart';
-import 'package:blog_app/features/blog/data/models/blog_model.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/errors/server_exception.dart';
 import '../models/blog_model.dart';
 
 abstract interface class BlogRemoteDataSource {
@@ -27,8 +27,10 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
 
       return BlogModel.fromJson(blogData.first);
     } on PostgrestException catch (e) {
+      print("postgrest error");
       throw ServerException(e.message);
     } catch (e) {
+      print("database server error");
       throw ServerException(e.toString());
     }
   }
@@ -57,6 +59,7 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
   @override
   Future<List<BlogModel>> getAllBlogs() async {
     try {
+
       final blogs =
           await supabaseClient.from('blogs').select('*, profiles (name)');
       return blogs
@@ -66,6 +69,8 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
             ),
           )
           .toList();
+    } on SocketException catch (e) {
+      throw ServerException("Connection is lost!");
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {

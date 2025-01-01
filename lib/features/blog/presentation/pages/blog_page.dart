@@ -22,6 +22,7 @@ class _BlogPageState extends State<BlogPage> {
   @override
   void initState() {
     super.initState();
+    print("main pasge is called!");
     context.read<BlogBloc>().add(BlogFetchAllBlogs());
   }
 
@@ -55,9 +56,8 @@ class _BlogPageState extends State<BlogPage> {
             return ListView.builder(
               itemCount: state.blogs.length,
               itemBuilder: (context, index) {
-                final blog = state.blogs[index];
                 return BlogCard(
-                  blog: blog,
+                  blog: state.blogs[index],
                   color: index % 2 == 0
                       ? AppPallete.gradient1
                       : AppPallete.gradient2,

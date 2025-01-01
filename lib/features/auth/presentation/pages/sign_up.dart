@@ -1,6 +1,7 @@
 import 'package:blog_clean_architecture/core/theme/app_pallete.dart';
 import 'package:blog_clean_architecture/core/utils/show_snack_bar.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:blog_clean_architecture/features/auth/presentation/pages/login.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_clean_architecture/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:blog_clean_architecture/main.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common/widget/loader.dart';
 
 class SignUpPage extends StatefulWidget {
+  static route()=> MaterialPageRoute(builder:(BuildContext context) => SignUpPage() );
   const SignUpPage({super.key});
 
   @override
@@ -78,20 +80,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
               ),
               const SizedBox(height: 20),
-              RichText(
-                  text: TextSpan(
-                      text: "Already have an account",
-                      style: Theme.of(context).textTheme.titleMedium,
-                      children: [
-                    TextSpan(
-                        text: " Sign In",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                color: AppPallete.gradient2,
-                                fontWeight: FontWeight.bold))
-                  ]))
+              GestureDetector(
+                onTap:()=> Navigator.pushReplacement(context,LoginPage.route()),
+                child: RichText(
+                    text: TextSpan(
+                        text: "Already have an account",
+                        style: Theme.of(context).textTheme.titleMedium,
+                        children: [
+                      TextSpan(
+                          text: " Sign In",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  color: AppPallete.gradient2,
+                                  fontWeight: FontWeight.bold))
+                    ])),
+              )
             ],
           ),
         );
