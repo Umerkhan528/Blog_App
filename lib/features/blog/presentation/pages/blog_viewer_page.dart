@@ -4,6 +4,9 @@ import 'package:blog_clean_architecture/core/utils/format_date.dart';
 import 'package:blog_clean_architecture/features/blog/domain/entities/blog.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/calculate_reading_time.dart';
+import '../../../../core/utils/format_date.dart';
+
 class BlogViewerPage extends StatelessWidget {
   static route(Blog blog) => MaterialPageRoute(
         builder: (context) => BlogViewerPage(

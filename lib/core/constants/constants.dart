@@ -6,5 +6,9 @@ class Constants {
     'Entertainment',
   ];
 
+<<<<<<< HEAD
   static const noConnectionErrorMessage = 'Not connected to a network!';
 }
+=======
+}
+>>>>>>> origin/main

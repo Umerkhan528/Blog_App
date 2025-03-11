@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDataSource {
   Session? get currentUserSession;
+
   Future<UserModel> signUpWithEmailPassword({
     required String name,
     required String email,
@@ -17,6 +18,7 @@ abstract interface class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+<<<<<<< HEAD
   final SupabaseClient supabaseClient;
   AuthRemoteDataSourceImpl(this.supabaseClient);
 
@@ -62,6 +64,48 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw ServerException('User is null!');
       }
       return UserModel.fromJson(response.user!.toJson());
+=======
+  SupabaseClient supabaseClient;
+
+  @override
+  Session? get currentUserSession => supabaseClient.auth.currentSession;
+
+  AuthRemoteDataSourceImpl(this.supabaseClient);
+
+  @override
+  Future<UserModel> signUpWithEmailPassword(
+      {required String email,
+      required String password,
+      required String name}) async {
+    try {
+      final res = await supabaseClient.auth
+          .signUp(password: password, email: email, data: {
+        'name': name,
+      });
+      if (res.user == null) {
+        throw ServerException("user is null");
+      }
+      return UserModel.fromJson(res.user!.toJson());
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<UserModel> loginWithEmailPassword(
+      {required String email, required String password}) async {
+    try {
+      final res = await supabaseClient.auth.signInWithPassword(
+        password: password,
+        email: email,
+      );
+      if (res.user == null) {
+        throw ServerException("user is null");
+      }
+      return UserModel.fromJson(res.user!.toJson());
+>>>>>>> origin/main
     } on AuthException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
